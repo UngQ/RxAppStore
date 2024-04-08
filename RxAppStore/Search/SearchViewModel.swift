@@ -11,6 +11,8 @@ import RxCocoa
 
 class SearchViewModel {
 
+	let repository = AppRepository()
+
 	let savedHistoryIdentifier = "history"
 
 	var savedHistoryList: [String] = []
@@ -56,6 +58,7 @@ class SearchViewModel {
 				searchHistoryList.onNext(owner.savedHistoryList)
 			}
 			.disposed(by: bag)
+
 
 		//서치바 검색시, 네트워크 연결 바인딩
 		input.searchButtonClicked

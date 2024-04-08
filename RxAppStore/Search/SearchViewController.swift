@@ -74,6 +74,12 @@ class SearchViewController: UIViewController {
 
 			cell.appIconImageView.kf.setImage(with: element.artworkUrl512)
 			cell.appNameLabel.text = element.trackCensoredName
+			cell.downloadButton.rx.tap
+				.subscribe(with: self) { owner, _ in
+					owner.viewModel.repository.addAppData(element)
+				}
+				.disposed(by: cell.disposeBag)
+
 		}
 			.disposed(by: bag)
 
@@ -84,6 +90,16 @@ class SearchViewController: UIViewController {
 			cell.textLabel?.text = element
 		}
 		.disposed(by: bag)
+
+		resultTableView.rx.modelSelected(AppResult.self)
+			.subscribe(with: self) { owner, data in
+				let vc = DetailInfoViewController()
+				vc.result = data
+
+				owner.navigationController?.pushViewController(vc, animated: true)
+			}
+			.disposed(by: bag)
+
 	}
 
 	private func configureNavigationBar() {

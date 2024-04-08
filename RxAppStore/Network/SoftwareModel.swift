@@ -30,15 +30,15 @@ struct AppResult: Codable {
 //	var price: Double
 	var description: String
 //	var genreIds: [String]
-//	var bundleId: String
+	var bundleId: String
 //	var releaseDate: Date
-//	var sellerName: String
+	var sellerName: String
 //	var currentVersionReleaseDate: Date
 //	var trackId: Int
 //	var trackName: String
 ////	var averageUserRating: Double
 	var trackCensoredName: String
-	var trackViewUrl: URL
+//	var trackViewUrl: URL
 //	var contentAdvisoryRating: String
 //	var version: String
 //	var wrapperType: String

@@ -25,6 +25,13 @@
 		A54C0E3B2BC2A3ED007E8DA4 /* SoftwareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C0E3A2BC2A3ED007E8DA4 /* SoftwareModel.swift */; };
 		A54C0E3D2BC2B069007E8DA4 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C0E3C2BC2B069007E8DA4 /* SearchResultTableViewCell.swift */; };
 		A54C0E402BC2B2B3007E8DA4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A54C0E3F2BC2B2B3007E8DA4 /* Kingfisher */; };
+		A54C0E432BC2EF07007E8DA4 /* DetailInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C0E422BC2EF07007E8DA4 /* DetailInfoViewController.swift */; };
+		A54C0E452BC2EF1B007E8DA4 /* DetailInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C0E442BC2EF1B007E8DA4 /* DetailInfoViewModel.swift */; };
+		A54C0E4B2BC35A0E007E8DA4 /* AppRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C0E4A2BC35A0E007E8DA4 /* AppRepository.swift */; };
+		A54C0E4D2BC35A60007E8DA4 /* AppDataRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C0E4C2BC35A60007E8DA4 /* AppDataRealmModel.swift */; };
+		A54C0E502BC362EC007E8DA4 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C0E4F2BC362EC007E8DA4 /* TabbarViewController.swift */; };
+		A54C0E532BC36679007E8DA4 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C0E522BC36679007E8DA4 /* SavedViewController.swift */; };
+		A54C0E552BC366CA007E8DA4 /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54C0E542BC366CA007E8DA4 /* SavedViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +49,13 @@
 		A54C0E382BC2A0BB007E8DA4 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		A54C0E3A2BC2A3ED007E8DA4 /* SoftwareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareModel.swift; sourceTree = "<group>"; };
 		A54C0E3C2BC2B069007E8DA4 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
+		A54C0E422BC2EF07007E8DA4 /* DetailInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoViewController.swift; sourceTree = "<group>"; };
+		A54C0E442BC2EF1B007E8DA4 /* DetailInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoViewModel.swift; sourceTree = "<group>"; };
+		A54C0E4A2BC35A0E007E8DA4 /* AppRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRepository.swift; sourceTree = "<group>"; };
+		A54C0E4C2BC35A60007E8DA4 /* AppDataRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataRealmModel.swift; sourceTree = "<group>"; };
+		A54C0E4F2BC362EC007E8DA4 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
+		A54C0E522BC36679007E8DA4 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
+		A54C0E542BC366CA007E8DA4 /* SavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +94,12 @@
 		A54C0E0E2BC29048007E8DA4 /* RxAppStore */ = {
 			isa = PBXGroup;
 			children = (
+				A54C0E4E2BC362D7007E8DA4 /* Tabbar */,
+				A54C0E492BC35989007E8DA4 /* DBMS */,
 				A54C0E372BC2A0A2007E8DA4 /* Network */,
 				A54C0E232BC2906C007E8DA4 /* Search */,
+				A54C0E412BC2EE7D007E8DA4 /* Detail */,
+				A54C0E512BC3662E007E8DA4 /* Saved */,
 				A54C0E0F2BC29048007E8DA4 /* AppDelegate.swift */,
 				A54C0E112BC29048007E8DA4 /* SceneDelegate.swift */,
 				A54C0E132BC29048007E8DA4 /* ViewController.swift */,
@@ -111,6 +129,41 @@
 				A54C0E3A2BC2A3ED007E8DA4 /* SoftwareModel.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		A54C0E412BC2EE7D007E8DA4 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				A54C0E422BC2EF07007E8DA4 /* DetailInfoViewController.swift */,
+				A54C0E442BC2EF1B007E8DA4 /* DetailInfoViewModel.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		A54C0E492BC35989007E8DA4 /* DBMS */ = {
+			isa = PBXGroup;
+			children = (
+				A54C0E4A2BC35A0E007E8DA4 /* AppRepository.swift */,
+				A54C0E4C2BC35A60007E8DA4 /* AppDataRealmModel.swift */,
+			);
+			path = DBMS;
+			sourceTree = "<group>";
+		};
+		A54C0E4E2BC362D7007E8DA4 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				A54C0E4F2BC362EC007E8DA4 /* TabbarViewController.swift */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		A54C0E512BC3662E007E8DA4 /* Saved */ = {
+			isa = PBXGroup;
+			children = (
+				A54C0E522BC36679007E8DA4 /* SavedViewController.swift */,
+				A54C0E542BC366CA007E8DA4 /* SavedViewModel.swift */,
+			);
+			path = Saved;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,13 +253,20 @@
 			files = (
 				A54C0E142BC29048007E8DA4 /* ViewController.swift in Sources */,
 				A54C0E362BC29C43007E8DA4 /* SearchHistoryViewController.swift in Sources */,
+				A54C0E502BC362EC007E8DA4 /* TabbarViewController.swift in Sources */,
+				A54C0E532BC36679007E8DA4 /* SavedViewController.swift in Sources */,
 				A54C0E3B2BC2A3ED007E8DA4 /* SoftwareModel.swift in Sources */,
 				A54C0E342BC2963F007E8DA4 /* SearchViewModel.swift in Sources */,
 				A54C0E102BC29048007E8DA4 /* AppDelegate.swift in Sources */,
+				A54C0E452BC2EF1B007E8DA4 /* DetailInfoViewModel.swift in Sources */,
 				A54C0E252BC290ED007E8DA4 /* SearchViewController.swift in Sources */,
+				A54C0E4B2BC35A0E007E8DA4 /* AppRepository.swift in Sources */,
+				A54C0E4D2BC35A60007E8DA4 /* AppDataRealmModel.swift in Sources */,
 				A54C0E392BC2A0BB007E8DA4 /* Network.swift in Sources */,
 				A54C0E122BC29048007E8DA4 /* SceneDelegate.swift in Sources */,
 				A54C0E3D2BC2B069007E8DA4 /* SearchResultTableViewCell.swift in Sources */,
+				A54C0E552BC366CA007E8DA4 /* SavedViewModel.swift in Sources */,
+				A54C0E432BC2EF07007E8DA4 /* DetailInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

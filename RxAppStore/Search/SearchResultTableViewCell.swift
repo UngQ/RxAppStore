@@ -13,6 +13,7 @@ class SearchResultTableViewCell: UITableViewCell {
 
 	static let identifier = "SearchResultTableViewCell"
 
+
 	let appNameLabel: UILabel = {
 		let label = UILabel()
 		label.font = .systemFont(ofSize: 18, weight: .bold)
