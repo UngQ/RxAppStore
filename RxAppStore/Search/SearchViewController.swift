@@ -35,23 +35,26 @@ class SearchViewController: UIViewController {
 
 	func bind() {
 		//서치바 클릭시 히스토리 뷰 활성화 바인드
-		navigationItem.searchController?.searchBar.rx
-			.textDidBeginEditing
-			.bind(with: self, onNext: { owner, _ in
-				owner.historyView.isHidden.toggle()
-			})
-			.disposed(by: bag)
+//		navigationItem.searchController?.searchBar.rx
+//			.textDidBeginEditing
+//			.bind(with: self, onNext: { owner, _ in
+//				print("searchbar clikk")
+//				owner.historyView.isHidden = false
+//			})
+//			.disposed(by: bag)
 		//서치바 벗어나면 히스토리 뷰 비활성화 바인드
 		navigationItem.searchController?.searchBar.rx
 			.textDidEndEditing
 			.bind(with: self, onNext: { owner, _ in
-				owner.historyView.isHidden.toggle()
+				owner.historyView.isHidden = true
 			})
 			.disposed(by: bag)
+
 		resultTableView.rx.rowHeight
 			.onNext(80)
 
-	
+		navigationItem.searchController?.searchBar.delegate = self
+
 
 		//
 		guard let searchBarText = navigationItem.searchController?.searchBar.rx.text.orEmpty else { return }
@@ -59,14 +62,33 @@ class SearchViewController: UIViewController {
 		guard let searchBarClicked = navigationItem.searchController?.searchBar.rx.textDidBeginEditing else { return }
 		guard let searchBarCancelButtonClicked = navigationItem.searchController?.searchBar.rx.cancelButtonClicked else { return }
 
-		let input = SearchViewModel.Input(searchBarText: searchBarText,
-										  searchButtonClicked: searchButtonClicked,
+		let searchTextObservable = Observable.merge(searchBarText.asObservable(),
+													historyVC.historyTableView.rx
+			.modelSelected(String.self)
+			.map{ $0 })
+
+		let searchTrigger = Observable.merge(searchButtonClicked.asObservable(),
+											 historyVC.historyTableView.rx.modelSelected(String.self).map { _ in })
+
+		let input = SearchViewModel.Input(searchBarText: searchTextObservable,
+										  searchTrigger: searchTrigger,
 										  searchBarClicked: searchBarClicked,
 										  searchBarCancleButtonClicked: searchBarCancelButtonClicked,
 										  allDeleteButtonClicked: historyVC.allDeleteButton.rx.tap)
 
 
 		let output = viewModel.transform(input: input)
+
+		searchTrigger.bind(with: self) { owner, _ in
+			owner.historyView.isHidden = true
+		}
+		.disposed(by: bag)
+
+		output.searchBarText
+			.drive(with: self) { owner, value in
+				owner.navigationItem.searchController?.searchBar.text = value
+			}
+			.disposed(by: bag)
 
 		output.resultList.bind(to:
 			resultTableView.rx.items(cellIdentifier: SearchResultTableViewCell.identifier, cellType: SearchResultTableViewCell.self) ) {
@@ -88,8 +110,21 @@ class SearchViewController: UIViewController {
 			row, element, cell in
 
 			cell.textLabel?.text = element
+
+
 		}
 		.disposed(by: bag)
+
+//		historyVC.historyTableView.rx.modelSelected(String.self)
+//			.subscribe(with: self, onNext: { owner, value in
+//				print(value)
+//				input.searchBarText.onNext(value)
+//
+//				owner.historyView.isHidden.toggle()
+//			})
+//
+//			.disposed(by: bag)
+
 
 		resultTableView.rx.modelSelected(AppResult.self)
 			.subscribe(with: self) { owner, data in
@@ -152,4 +187,12 @@ class SearchViewController: UIViewController {
 
 
 
+}
+
+
+extension SearchViewController: UISearchBarDelegate {
+
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+		self.historyView.isHidden = false
+	}
 }

@@ -39,3 +39,14 @@ final class AppDataRealmModel: Object {
 
 	}
 }
+
+extension AppDataRealmModel {
+	func toStruct() -> AppResult {
+		return AppResult(artworkUrl512: URL(string: self.artworkUrl512)!,
+						 screenshotUrls: [URL(string:self.firstScreenshotUrl)!, URL(string:self.secondScreenshotUrl)!],
+						 description: self.description,
+						 bundleId: self.bundleId,
+						 sellerName: self.sellerName,
+						 trackCensoredName: self.trackCensoredName)
+	}
+}

@@ -45,6 +45,7 @@ class DetailInfoViewController: UIViewController {
 		let data = BehaviorSubject(value: result)
 		let input = DetailInfoViewModel.Input(data: data)
 
+
 		let output = viewModel.transform(input: input)
 		output.data.bind(with: self) { owner, data in
 			print(data.artworkUrl512)

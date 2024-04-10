@@ -19,8 +19,11 @@ class SearchViewModel {
 	let bag = DisposeBag()
 
 	struct Input {
-		let searchBarText: ControlProperty<String>
-		let searchButtonClicked: ControlEvent<Void>
+//		let searchBarText: ControlProperty<String>
+//		let searchButtonClicked: ControlEvent<Void>
+		let searchBarText: Observable<String>
+		let searchTrigger: Observable<Void>
+//		let searchTrigger: PublishSubject<Void>
 		let searchBarClicked: ControlEvent<Void>
 		let searchBarCancleButtonClicked: ControlEvent<Void>
 		let allDeleteButtonClicked: ControlEvent<Void>
@@ -28,6 +31,7 @@ class SearchViewModel {
 
 	struct Output {
 
+		let searchBarText: Driver<String>
 		let searchHistoryList: PublishSubject<[String]>
 		let resultList: PublishSubject<[AppResult]>
 	}
@@ -35,6 +39,7 @@ class SearchViewModel {
 	func transform(input: Input) -> Output {
 		print(#function)
 
+		let searchBarText = PublishSubject<String>()
 		let searchHistoryList = PublishSubject<[String]>()
 		let resultList = PublishSubject<[AppResult]>()
 
@@ -61,23 +66,28 @@ class SearchViewModel {
 
 
 		//서치바 검색시, 네트워크 연결 바인딩
-		input.searchButtonClicked
+		input.searchTrigger
 			.withLatestFrom(input.searchBarText)
-			.flatMap { iTunesNetwork.fetchAppStoreData(text: $0 ) }
+			.flatMap { iTunesNetwork.fetchAppStoreData(text: $0)
+					.catch { error in
+						print("network error")
+						return Single<AppStoreResponse>.never()
+					}
+			}
 			.subscribe(with: self) { owner, value in
 				resultList.onNext(value.results)
 			}
 			.disposed(by: bag)
 
 		//서치바 검색시, 검색 기록 추가 바인딩
-		input.searchButtonClicked
+		input.searchTrigger
 			.withLatestFrom(input.searchBarText)
 			.subscribe(with: self) { owner, value in
 
-				print(owner.savedHistoryList)
+				searchBarText.onNext(value)
 				owner.savedHistoryList.insert(value, at: 0)
 				UserDefaults.standard.setValue(owner.savedHistoryList, forKey: owner.savedHistoryIdentifier)
-				print(owner.savedHistoryList)
+
 				searchHistoryList.onNext(owner.savedHistoryList)
 
 			}
@@ -94,7 +104,8 @@ class SearchViewModel {
 
 
 
-		return Output(searchHistoryList: searchHistoryList,
+		return Output(searchBarText: searchBarText.asDriver(onErrorJustReturn: ""),
+			searchHistoryList: searchHistoryList,
 					  resultList: resultList)
 	}
 
